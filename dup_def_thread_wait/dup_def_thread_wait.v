@@ -7,6 +7,7 @@ pub mut:
 	sa SA
 	sb SB
 }
+
 pub fn new_sc() SC {
 	mut inst := SC{
 		threads: []thread ?{}
@@ -16,13 +17,11 @@ pub fn new_sc() SC {
 	inst.threads << go fn () ? {}()
 	return inst
 }
+
 pub fn (self SC) wait() {
 	for th in self.threads {
-		th.wait() or {
-			panic(err)
-		}
+		th.wait() or { panic(err) }
 	}
 	self.sa.wait()
 	self.sb.wait()
 }
-

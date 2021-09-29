@@ -4,9 +4,7 @@ struct SA {
 mut:
 	threads []thread
 }
-pub fn (self SA) wait() {
-	self.threads.wait()
-}
+
 fn new_sa() SA {
 	mut inst := SA{
 		threads: []thread{}
@@ -14,4 +12,9 @@ fn new_sa() SA {
 	inst.threads << go (&inst).run()
 	return inst
 }
+
+pub fn (self SA) wait() {
+	self.threads.wait()
+}
+
 pub fn (mut self SA) run() {}
